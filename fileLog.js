@@ -133,7 +133,7 @@ var fileLog = function (data) {
             single: false,
             showerr: false,
             debug: false,
-            path: '/Users/abhishekkumarverma/Data/indifi/arya/uploads/',//global.Config.uploadDirPath,
+            path: '/Users/abhishekkumarverma/Data/indifi/arya/uploads/',//global.Config.uploadDirPath, // use env or absolute path
             force: false,
             stack: true, // prepend caller details on main mssg
             // substringMode : false,
