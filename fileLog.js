@@ -7,6 +7,56 @@
 
 // To use filelog in some other repo, we can give absolute path in require()
 
+// Use below snippets in vscode for autocompelte using extension - TS/JS Postfix completion
+// {
+//         "name": "rfl",
+//         "description": "require fileLog",
+//         "body": "const fileLog = require(global.Config.uploadDirPath + 'fileLog');",
+//         "when": ["identifier"]
+//       },
+//       {
+//         "name": "flg",
+//         "description": "fileLog all params",
+//         "body": "fileLog({enable:true,name:'{{expr}}',value:{{expr}},key:'{{expr}}',folder:'logs',stringify:true,uniqueName:true,append:false,single:true,first:false,last:false,moment:true,ext:'json',force:false,showerr:false,debug:false});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "ufl",
+//         "description": "unique file",
+//         "body": "fileLog({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,uniqueName:true,single:true});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "uflr",
+//         "description": "unique file with require",
+//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,uniqueName:true,single:true});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "sfl",
+//         "description": "single value",
+//         "body": "fileLog({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,append:false,single:true,first:false,last:false});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "sflr",
+//         "description": "single value with require",
+//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,append:false,single:true,first:false,last:false});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "afl",
+//         "description": "same file",
+//         "body": "fileLog({name:'afl',value:{{expr}},key:'{{expr}}',stringify:true,append:true,single:false,first:false,last:false});",
+//         "when": ["identifier","expression"]
+//       },
+//       {
+//         "name": "aflr",
+//         "description": "same file with require",
+//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'afl',value:{{expr}},key:'{{expr}}',stringify:true,append:true,single:false,first:false,last:false});",
+//         "when": ["identifier","expression"]
+//       },
+
 var fs = require('fs'),
     moment = require('moment');
     
