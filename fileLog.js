@@ -5,6 +5,8 @@
 // var fileLog = require(global.Config.uploadDirPath + 'fileLog');
 // fileLog({name:'result',value:result,stringify:true,uniqueName:true,moment:true,ext:'json',append:false,force:true,showerr:true,})
 
+// To use filelog in some other repo, we can give absolute path in require()
+
 var fs = require('fs'),
     moment = require('moment');
     
