@@ -100,8 +100,8 @@ var fs = require('fs'),
         // console.log('getLineNumber() : '+ err.stack.shift().getLineNumber());
 
         // var newStack = [...err.stack];
-        // require('common-utilities').AWS.SES.sendEmail({
-		// 	to: ['example@mail.com'],
+        // require('arya-commons').AWS.SES.sendEmail({
+		// 	to: ['abhishek.kumar@indifi.com'],
 		// 	subject: 'callerstack 3',
 		// 	html: '<br><br><b>STACK</b><br>'+ (newStack).split(',').join('<br>')
         // })
@@ -181,7 +181,7 @@ var fileLog = function (data) {
         var defaultValues = {
             name: 'data',
             key: data.name,
-            stringify: true,
+            stringify: false,
             ext: "json",
             uniqueName: false,
             moment: false,
@@ -191,7 +191,7 @@ var fileLog = function (data) {
             single: false,
             showerr: false,
             debug: false,
-            path: '/Users/abhishekkumarverma/scripts/logs', // use env or absolute path
+            path: '/Users/abhishekkumarverma/Data/indifi/arya/uploads/',//global.Config.uploadDirPath, // use env or absolute path
             force: false,
             stack: true, // prepend caller details on main mssg
             // substringMode : false,
@@ -222,7 +222,7 @@ var fileLog = function (data) {
                 var caller = data.stack ? getCaller() : '';
                 console.log(`Filelog disabled >> ${caller}${data.key}`);
                 // console.log(`Filelog >> ~${(module.parent.filename).substring((module.parent.filename).indexOf("arya")+4,(module.parent.filename).length)}`);
-                // console.log(`Filelog >> ${(module.parent.filename).replace('/Users/abhishekkumarverma/scripts','~')}`);
+                // console.log(`Filelog >> ${(module.parent.filename).replace('/Users/abhishekkumarverma/Data/indifi/arya','~')}`);
                 // bloat : Doesn't work as expected due to anonymous function etc
                 // console.log(arguments.callee.caller.name);
                 // if (fileLog.caller == null) {
@@ -363,13 +363,13 @@ var fileLog = function (data) {
         if (data.stringify && data.ext == 'json') {
             if (!data.force) {
                 try {
-                    value = JSON.stringify(data.value);
+		  value = JSON.stringify(data.value, null, 4);    // prettify json
                 } catch (e) {
                     try {
                         if (data.showerr)
                             console.log(`fileLog -> e`, e);
                         // value = data.value;
-                        value = circular(data.value, null, 2);
+                        value = circular(data.value, null, 4);
                     } catch (e2) {
                         try {
                             if (data.showerr)
@@ -381,7 +381,7 @@ var fileLog = function (data) {
                     }
                 }
             } else {
-                value = JSON.stringify(data.value);
+                value = JSON.stringify(data.value, null, 4);
             }
         } else {
             value = data.value;
@@ -501,7 +501,7 @@ var fileLog = function (data) {
         if(data.sendEmail){
             console.log('Mailing fileLog response'); 
             var emailConfig = {
-                to : ['example@mail.com'],
+                to : ['abhishek.kumar@indifi.com'],
                 subject: 'FileLog - ' + data.name,
                 html: `PFA,<br>Sent by <b>FileLog</b> utility<br>Created by akvabhi`, 
                 attachments: [{
@@ -510,7 +510,7 @@ var fileLog = function (data) {
                     contentType: 'application/json'
                 }]
             }
-            require('common-utilities').AWS.SES.sendEmail(emailConfig)
+            require('arya-commons').AWS.SES.sendEmail(emailConfig)
             .then(() => {
                 console.log('FileLog mail sent for '+ data.name + ' to ' + emailConfig.to);
             }).fail((e)=>{
@@ -626,7 +626,7 @@ function help(topic) {
     // last: true,
     // showerr: false,
     // debug: true,
-    // path: '/Users/abhishekkumarverma/scripts/logs,
+    // path: '/Users/abhishekkumarverma/Data/indifi/arya/core-api/lib/../../uploads/',
     // force: false
     if (topic) {
         topic = topic.split(',');
@@ -668,7 +668,7 @@ function help(topic) {
                     if (!all)
                         break;
                 case 'path':
-                    description = 'Directory path for saving file. [default = "scripts/logs"]';
+                    description = 'Directory path for saving file. [default = "arya/uploads"]';
                     helpText.push({
                         'path': description
                     });
