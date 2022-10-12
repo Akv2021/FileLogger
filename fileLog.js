@@ -63,6 +63,7 @@
       //   "when": ["identifier","expression"]
       // },
 
+// coloured logger - https://stackoverflow.com/a/68137902
 var fs = require('fs'),
     moment = require('moment');
     
@@ -237,7 +238,7 @@ var fileLog = function (data) {
         }else{
             var caller = data.stack ? getCaller() : '';
         // console.log('CLG : fileLog -> caller', caller);
-            console.log(`\n ***Value not found for  : ${caller}${data.key}`);
+            console.log(`\n \u001b[1;31m ***Value not found for  : ${caller}${data.key}\u001b[0m`);
             // console.error('Value not found for '+data.name);
             return module.parent.filename;
         }
@@ -357,7 +358,7 @@ var fileLog = function (data) {
         var caller = data.stack ? getCaller() : '';
         var uploadPath = substringMode ? `${data.folder}/${filePath.split('/').pop()}` : `\n${filePath}`;
         // console.log('CLG : fileLog -> caller', caller);
-        console.log(`\n------> Logging : ${caller}${data.key} ==> ${uploadPath} <------\n`);
+        console.log(`\u001b[1;32m \n------> Logging : ${caller}${data.key} ==> ${uploadPath} <------\n \u001b[0m`);
 
         // safe and forced stringifying
         if (data.stringify && data.ext == 'json') {
