@@ -56,6 +56,12 @@
 //         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'afl',value:{{expr}},key:'{{expr}}',stringify:true,append:true,single:false,first:false,last:false});",
 //         "when": ["identifier","expression"]
 //       },
+      // {
+      //   "name": "xlg",
+      //   "description": "single value with require",
+      //   "body": "require('/Users/abhishekkumarverma/scripts/fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',single:true});",
+      //   "when": ["identifier","expression"]
+      // },
 
 var fs = require('fs'),
     moment = require('moment');
