@@ -9,9 +9,6 @@ var fs = require('fs'),
     
     const substringMode = false;
 
-    // todo : fix caller function name to include previous and next caller and  see if it works
-    // https://www.thetopsites.net/article/50480823.shtml
-
     function getCaller() {
     var originalFunc = Error.prepareStackTrace;
 
@@ -23,32 +20,8 @@ var fs = require('fs'),
     try {
         var err = new Error();
         var currentfile;
-        // var nextCaller;
-        // var prevCaller,prevType,prevMethod,
-        // type,method,
-        // nextStack,nextCaller,nextType,nextMethod;
-        // console.log('lineno '+err.lineNumber);
-        
-
         Error.prepareStackTrace = function (err, stack) { return stack; };
-        // console.log(JOSN.stringify(err.stack.shift()));
-        // console.log(JSON.stringify(err.stack));
         currentfile = err.stack.shift().getFileName();
-        // console.log('CLG : Error.prepareStackTrace -> currentfile', currentfile);
-        // console.log('Function name : '+ err.stack.shift().getFunctionName());
-        // console.log('getMethodName() : '+ err.stack.shift().getMethodName());
-        // console.log('getTypeName() : '+ err.stack.shift().getTypeName());
-        // console.log('getLineNumber() : '+ err.stack.shift().getLineNumber());
-
-        // var newStack = [...err.stack];
-        // require('arya-commons').AWS.SES.sendEmail({
-		// 	to: ['abhishek.kumar@indifi.com'],
-		// 	subject: 'callerstack 3',
-		// 	html: '<br><br><b>STACK</b><br>'+ (newStack).split(',').join('<br>')
-        // })
-        // console.log(typeof err.stack,Array.isArray(err.stack));
-        // console.log(err.stack[0]);
-        // console.log(JSON.stringify(err.stack[0]));
    
         while (err.stack.length) {
 
@@ -62,35 +35,9 @@ var fs = require('fs'),
             // console.log('CLG : Error.prepareStackTrace -> callerfile', callerfile);
 
             if(currentfile !== callerfile) {
-                // function thisLine() {
-                //     try {
-                //       throw new Error();
-                //     } catch (e) {
-                //       const regex = /\d+:\d+/i;
-                //       const match = regex.exec(e.stack.split("\n")[2]);
-                //       return match[0];
-                //     }
-                //   }
-                  
-                //   console.log(thisLine());
-                // nextStack = err.stack.shift();
-                // nextCaller = err.stack.shift().getFunctionName();
-                // nextType = nextStack.getTypeName();
-                // nextMethod = nextStack.getMethodName();
-        //         console.log('CLG : Error.prepareStackTrace -> currentfile', currentfile);
-        // console.log('Function name : '+ err.stack.shift().getFunctionName());
-        // console.log('getMethodName() : '+ err.stack.shift().getMethodName());
-        // console.log('getTypeName() : '+ err.stack.shift().getTypeName());
-        // console.log('getLineNumber() : '+ err.stack.shift().getLineNumber());
-        // console.log('err.stack.shift()',err.stack.shift());
                 break;
 
             }
-            // else{
-            //     prevCaller = cs.getFunctionName();
-            //     prevType = cs.getTypeName();
-            //     prevMethod = cs.getMethodName();
-            // }
         }
     } catch (e) {
         console.error(e);
@@ -101,7 +48,6 @@ var fs = require('fs'),
     if(substringMode){
         callerfile = callerfile.substring(callerfile.indexOf("arya")+4,callerfile.length);
     }
-    // return `${callerfile} [${callerfunction}:${callerline}] >=> `;
     return `${callerfile}:${callerline} [${callerfunction}] >=> `;
 
 }
@@ -162,17 +108,6 @@ var fileLog = function (data) {
             if((!data.enable) && (!data.forcePrint)){
                 var caller = data.stack ? getCaller() : '';
                 console.log(`Filelog disabled >> ${caller}${data.key}`);
-                // console.log(`Filelog >> ~${(module.parent.filename).substring((module.parent.filename).indexOf("arya")+4,(module.parent.filename).length)}`);
-                // console.log(`Filelog >> ${(module.parent.filename).replace('/Users/abhishekkumarverma/Data/indifi/arya','~')}`);
-                // bloat : Doesn't work as expected due to anonymous function etc
-                // console.log(arguments.callee.caller.name);
-                // if (fileLog.caller == null) {
-                //     console.log('The function was called from the top!');
-                //   } else {
-                //     console.log('This function\'s caller was ' + fileLog.caller.toString() + fileLog.caller.name);
-                //   }
-                // console.log(`Filelog >> ${__filename.slice(__dirname.length + 1)}`);
-                // throw new Error('FileLog disabled');
                 return module.parent.filename;
             }
         }else{
@@ -194,25 +129,6 @@ var fileLog = function (data) {
             }
             cleanOutput(data.value,deletedValues,data.debug,data.key);
         }
-        // else if(dataKeys.length>0 && )
-
-        // bloat : read only support
-        // const readOnly = false;
-        // if(data.name.length>=3 && data.name.substring(0,3) == 'afl'){
-        //     console.dir({constName,readOnly});
-        //     if(data.first){
-        //         console.log('executing constname');
-        //         var constName = data.aflName + `_${new Date().getTime()}`;
-        //         readOnly = true;
-        //     }else if(data.last){
-        //         readOnly = false;
-        //     }
-
-        //     if(readOnly || data.last){
-        //         console.log('assigning from constname');
-        //         data.name = constName; //+ `_${new Date().getTime()}`;
-        //     }
-        // } 
 
        
         var value;
@@ -223,11 +139,6 @@ var fileLog = function (data) {
             console.log("'" + data.path + "' folder does not exist. Creating now..");
             fs.mkdirSync(data.path);
         }
-        // console.log('data.path : ',data.path);
-
-        // / explicilty enable mail for aflMode
-        // if(data.name == 'afl')
-        //     data.sendEmail = data.sendEmail == false ? false : true;
 
         if(data.name == 'afl' && data.aflNew ){
             
