@@ -1,67 +1,7 @@
-/**
-* @author: [Abhishek Verma]
-**/
+
 // node -e 'require("./fileLog")("help")'
 // var fileLog = require(global.Config.uploadDirPath + 'fileLog');
 // fileLog({name:'result',value:result,stringify:true,uniqueName:true,moment:true,ext:'json',append:false,force:true,showerr:true,})
-
-// To use filelog in some other repo, we can give absolute path in require()
-
-// Use below snippets in vscode for autocompelte using extension - TS/JS Postfix completion
-// {
-//         "name": "rfl",
-//         "description": "require fileLog",
-//         "body": "const fileLog = require(global.Config.uploadDirPath + 'fileLog');",
-//         "when": ["identifier"]
-//       },
-//       {
-//         "name": "flg",
-//         "description": "fileLog all params",
-//         "body": "fileLog({enable:true,name:'{{expr}}',value:{{expr}},key:'{{expr}}',folder:'logs',stringify:true,uniqueName:true,append:false,single:true,first:false,last:false,moment:true,ext:'json',force:false,showerr:false,debug:false});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "ufl",
-//         "description": "unique file",
-//         "body": "fileLog({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,uniqueName:true,single:true});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "uflr",
-//         "description": "unique file with require",
-//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,uniqueName:true,single:true});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "sfl",
-//         "description": "single value",
-//         "body": "fileLog({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,append:false,single:true,first:false,last:false});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "sflr",
-//         "description": "single value with require",
-//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',stringify:true,append:false,single:true,first:false,last:false});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "afl",
-//         "description": "same file",
-//         "body": "fileLog({name:'afl',value:{{expr}},key:'{{expr}}',stringify:true,append:true,single:false,first:false,last:false});",
-//         "when": ["identifier","expression"]
-//       },
-//       {
-//         "name": "aflr",
-//         "description": "same file with require",
-//         "body": "require(global.Config.uploadDirPath + 'fileLog')({name:'afl',value:{{expr}},key:'{{expr}}',stringify:true,append:true,single:false,first:false,last:false});",
-//         "when": ["identifier","expression"]
-//       },
-      // {
-      //   "name": "xlg",
-      //   "description": "single value with require",
-      //   "body": "require('/Users/abhishekkumarverma/scripts/fileLog')({name:'{{expr}}',value:{{expr}},key:'{{expr}}',single:true});",
-      //   "when": ["identifier","expression"]
-      // },
 
 // coloured logger - https://stackoverflow.com/a/68137902
 var fs = require('fs'),
@@ -813,36 +753,3 @@ function serializer(replacer, cycleReplacer) {
     }
 }
 module.exports = fileLog;
-
-// bloat : solved using snippets
-// todo ability to send values using array with minimum redundance
-// fileLog = require(global.Config.uploadDirPath + 'fileLog');
-// var values = [state, applicationId, userId, lmsConfig, req];
-// var name = [state, applicationId, userId, lmsConfig, req]
-// var template = {name:'res3',append:true};
-// for(let i = 0; i < logs.length;i++ ){
-//     let common = {name:'res3',append:true,key:}
-//     let special = {};
-//     if(i==0){
-//         special = {first:true,append:false};
-//     }else if(i== logs.length - 1){
-//         special = {last:true};
-//     }
-// }
-
-
-// todo support append mutiple values to same file with uniqueName - done
-
-// fix help method for cli
-// fix data.single
-// todo iterate default values from object in help showdefaults function
-// todo also put a process helptext.
-// implement all helptext
-
-// check console.dir({}) implementation
-// add internals flag or extend debug to show stepwise progress
-// handle JSON.parse if not required > SyntaxError: Unexpected token o in JSON at position 1
-// at JSON.parse (<anonymous>)
-
-// stringify by default iff input is obj
-// how to show options for fileLog in intellisense
